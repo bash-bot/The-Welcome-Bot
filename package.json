@@ -24,7 +24,7 @@
     "env": [
       "jest"
     ]
-  }
+  },
   "author": "Apoorvaa Gupta <apoorvaagupta01@gmail.com>",
   "license": "MIT",
   "bugs": {
