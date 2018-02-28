@@ -1,4 +1,4 @@
-let arr = ['']
+let arr = ["the-welcome-bot[bot]"]
 
 module.exports = (robot) => {
     robot.log('Yay, the app was loaded!')
