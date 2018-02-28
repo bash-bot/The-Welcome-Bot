@@ -16,20 +16,37 @@ module.exports = (robot) => {
         }
     })
 
-    robot.on('issue_comment.created', async context => {
+    // robot.on('issue_comment.created', async context => {
+    //     const params = context.issue({body: 'Hello World!'})
+    //     console.log(context.payload.comment.user.login)
+    //     // console.log(context.payload.comment.user.login)
+    //      console.log('********')
+    //     // console.log(params)
+    //      if (arr.indexOf(context.payload.comment.user.login) !== -1) {
+    //          console.log(arr)
+    //      } else {
+    //          arr.push(context.payload.comment.user.login)
+    //          console.log(arr)
+    //          return context.github.issues.createComment(params)
+    //      }
+    // })
+    robot.on('pull_request.opened', async context => {
         const params = context.issue({body: 'Hello World!'})
-        console.log(context.payload.comment.user.login)
+        console.log(context)
         // console.log(context.payload.comment.user.login)
-         console.log('********')
+        console.log('********')
         // console.log(params)
-         if (arr.indexOf(context.payload.comment.user.login) !== -1) {
+         if (arr.indexOf(context.payload.sender.login) !== -1) {
              console.log(arr)
          } else {
-             arr.push(context.payload.comment.user.login)
+             arr.push(context.payload.sender.login)
              console.log(arr)
+             // console.log(context.github)
              return context.github.issues.createComment(params)
          }
     })
+
+
 
 
 }
