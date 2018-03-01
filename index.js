@@ -1,3 +1,5 @@
+const db = require('./lib/schema').db;
+
 let arr = ['']
 
 module.exports = (robot) => {
