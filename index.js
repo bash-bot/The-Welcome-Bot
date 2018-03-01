@@ -1,6 +1,6 @@
 const db = require('./lib/schema').db;
 
-let arr = ['']
+let arr = ["the-welcome-bot[bot]"]
 
 module.exports = (robot) => {
     robot.log('Yay, the app was loaded!')
@@ -10,7 +10,7 @@ module.exports = (robot) => {
         // console.log(params)
         // console.log('********')
         if (arr.indexOf(context.payload.sender.login) !== -1) {
-            // cj
+            console.log(arr)
         } else {
             arr.push(context.payload.sender.login)
             console.log(arr)
@@ -21,15 +21,16 @@ module.exports = (robot) => {
     robot.on('issue_comment.created', async context => {
         const params = context.issue({body: 'Hello World!'})
         console.log(context.payload.comment.user.login)
-        // console.log('********')
+        // console.log(context.payload.comment.user.login)
+         console.log('********')
         // console.log(params)
-        // if (arr.indexOf(context.payload.sender.login) !== -1) {
-        //     // cj
-        // } else {
-        //     arr.push(context.payload.sender.login)
-        //     console.log(arr)
-        //     return context.github.issues.createComment(params)
-        // }
+         if (arr.indexOf(context.payload.comment.user.login) !== -1) {
+             console.log(arr)
+         } else {
+             arr.push(context.payload.comment.user.login)
+             console.log(arr)
+             return context.github.issues.createComment(params)
+         }
     })
 
 
