@@ -1,7 +1,7 @@
 .env
 node_modules
 *.pem
-.DS_Store/
+.DS_Store
 .idea
 secrets.json
 npm-debug.log

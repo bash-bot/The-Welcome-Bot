@@ -17,17 +17,9 @@ module.exports = (robot) => {
           username: context.payload.sender.login,
           repositoryName: context.payload.repository.full_name
         }).then(async user => {
-
-          console.log("reach")
-
           try {
-            console.log("reached1")
             const config = await context.config('config.yml');
-            console.log("reached2")
-
             if (config.welcomeMessage) {
-              console.log("reached3")
-
               context.github.issues.createComment(context.issue({body: config.welcomeMessage}))
             }
           } catch (err) {
