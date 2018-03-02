@@ -1,7 +1,7 @@
 {
   "name": "the-welcome-bot",
   "version": "1.0.0",
-  "description": "A bot to welcome new users on a repository",
+  "description": "A bot to welcome new users on any repository",
   "scripts": {
     "start": "probot run ./index.js",
     "test": "jest && standard"
