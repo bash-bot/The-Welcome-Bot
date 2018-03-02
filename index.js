@@ -51,12 +51,12 @@ module.exports = (robot) => {
         db.User.create({
           username: context.payload.comment.user.login,
           repositoryName: context.payload.repository.full_name
-        }).then(user => {
+        }).then(async user => {
           console.log("reahed1")
           console.log(user)
           try {
             console.log("reached2")
-            const config = context.config('config.yml');
+            const config = await context.config('config.yml');
             console.log(config)
             if (config.welcomeMessage) {
               console.log("reached3")
@@ -92,10 +92,10 @@ module.exports = (robot) => {
         db.User.create({
           username: context.payload.sender.login,
           repositoryName: context.payload.repository.full_name
-        }).then(user => {
+        }).then(async user => {
 
           try {
-            const config = context.config('config.yml');
+            const config = await context.config('config.yml');
             if (config.welcomeMessage) {
               return context.github.issues.createComment(context.issue({body: config.welcomeMessage}))
             }
