@@ -52,11 +52,18 @@ module.exports = (robot) => {
           username: context.payload.comment.user.login,
           repositoryName: context.payload.repository.full_name
         }).then(user => {
-
+          console.log("reahed1")
+          console.log(user)
           try {
+            console.log("reached2")
             const config = context.config('config.yml');
+            console.log(config)
             if (config.welcomeMessage) {
+              console.log("reached3")
+              console.log(config.welcomeMessage)
               return context.github.issues.createComment(context.issue({body: config.welcomeMessage}))
+            }  else {
+              console.log("hey there")
             }
           } catch (err) {
             if (err.code !== 404) {
