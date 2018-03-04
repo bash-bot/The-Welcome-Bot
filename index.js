@@ -37,12 +37,18 @@ module.exports = (robot) => {
   })
 
   function checkUser(context, username, repositoryName, eventType) {
+    console.log("**************************")
+
+    console.log(context)
     db.User.findOne({
       where: {
         username: username,
         repositoryName: repositoryName
       }
     }).then(function (user) {
+      console.log("**************************")
+
+      console.log(context)
       if (user === null) {
         db.User.create({
           username: username,
