@@ -9,7 +9,7 @@ module.exports = (robot) => {
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, issueOpen)
+      checkUser(username, repositoryName, "issueOpen")
 
   })
 
@@ -19,7 +19,7 @@ module.exports = (robot) => {
       , repositoryName = context.payload.repository.full_name;
 
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, issueComment)
+      checkUser(username, repositoryName, "issueComment")
 
   })
 
@@ -28,11 +28,11 @@ module.exports = (robot) => {
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, prOpen)
+      checkUser(username, repositoryName, "prOpen")
 
   })
 
-  function checkUser(username, repositoryName, botCommentFunction) {
+  function checkUser(username, repositoryName, eventType) {
     db.User.findOne({
       where: {
         username: username,
@@ -43,7 +43,32 @@ module.exports = (robot) => {
         db.User.create({
           username: username,
           repositoryName: repositoryName
-        }).then(botCommentFunction)
+        }).then(async user => {
+          try {
+            const config = await context.config('config.yml');
+
+            let message;
+
+            switch (eventType) {
+              case "issueOpen":
+                message = config.issueOpen || config.welcomeMessage;
+              case "issueComment":
+                message = config.issueComment || config.welcomeMessage;
+              case "prOpen":
+                message = config.prOpen || config.welcomeMessage;
+            }
+
+            if (message) {
+              return context.github.issues.createComment(context.issue({body: message}))
+            } else {
+              return context.github.issues.createComment(context.issue({body: "Hello World! Welcome to this project."}))
+            }
+          } catch (err) {
+            if (err.code !== 404) {
+              throw err;
+            }
+          }
+        })
           .catch(function (err) {
             console.log(err);
           })
@@ -51,54 +76,6 @@ module.exports = (robot) => {
     }).catch(function (err) {
       console.log(err);
     })
-  }
-
-  async function issueOpen(context) {
-    try {
-      const config = await context.config('config.yml');
-      let message = config.issueOpen || config.welcomeMessage;
-      if (message) {
-        return context.github.issues.createComment(context.issue({body: message}))
-      } else {
-        return context.github.issues.createComment(context.issue({body: "Hello World! Welcome to this project."}))
-      }
-    } catch (err) {
-      if (err.code !== 404) {
-        throw err;
-      }
-    }
-  }
-
-  async function issueComment(context) {
-    try {
-      const config = await context.config('config.yml');
-      let message = config.issueComment || config.welcomeMessage;
-      if (message) {
-        return context.github.issues.createComment(context.issue({body: message}))
-      } else {
-        return context.github.issues.createComment(context.issue({body: "Hello World! Welcome to this project."}))
-      }
-    } catch (err) {
-      if (err.code !== 404) {
-        throw err;
-      }
-    }
-  }
-
-  async function prOpen(context) {
-    try {
-      const config = await context.config('config.yml');
-      let message = config.prOpen || config.welcomeMessage;
-      if (message) {
-        return context.github.issues.createComment(context.issue({body: message}))
-      } else {
-        return context.github.issues.createComment(context.issue({body: "Hello World! Welcome to this project."}))
-      }
-    } catch (err) {
-      if (err.code !== 404) {
-        throw err;
-      }
-    }
   }
 
 }
