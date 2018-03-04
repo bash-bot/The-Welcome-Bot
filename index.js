@@ -8,8 +8,8 @@ module.exports = (robot) => {
 
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
-
-    checkUser(username, repositoryName, issueOpen)
+    if(username !== "the-welcome-bot[bot]")
+      checkUser(username, repositoryName, issueOpen)
 
   })
 
@@ -18,7 +18,8 @@ module.exports = (robot) => {
     let username = context.payload.comment.user.login
       , repositoryName = context.payload.repository.full_name;
 
-    checkUser(username, repositoryName, issueComment)
+    if(username !== "the-welcome-bot[bot]")
+      checkUser(username, repositoryName, issueComment)
 
   })
 
@@ -26,8 +27,8 @@ module.exports = (robot) => {
 
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
-
-    checkUser(username, repositoryName, prOpen)
+    if(username !== "the-welcome-bot[bot]")
+      checkUser(username, repositoryName, prOpen)
 
   })
 
