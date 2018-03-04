@@ -28,11 +28,11 @@ module.exports = (robot) => {
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, "prOpen")
+      checkUser(context, username, repositoryName, "prOpen")
 
   })
 
-  function checkUser(username, repositoryName, eventType) {
+  function checkUser(context, username, repositoryName, eventType) {
     db.User.findOne({
       where: {
         username: username,
