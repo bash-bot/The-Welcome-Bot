@@ -27,6 +27,7 @@ module.exports = (robot) => {
 
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
+    console.log(context)
     if(username !== "the-welcome-bot[bot]")
       checkUser(context, username, repositoryName, "prOpen")
 
@@ -45,6 +46,7 @@ module.exports = (robot) => {
           repositoryName: repositoryName
         }).then(async user => {
           try {
+            console.log(context)
             const config = await context.config('config.yml');
 
             let message;
