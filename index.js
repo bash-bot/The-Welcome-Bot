@@ -8,8 +8,7 @@ module.exports = (robot) => {
 
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
-    console.log("**************************")
-    console.log(context)
+
     if (username !== "the-welcome-bot[bot]")
       checkUser(context, username, repositoryName, "issueOpen")
 
@@ -29,36 +28,27 @@ module.exports = (robot) => {
 
     let username = context.payload.sender.login
       , repositoryName = context.payload.repository.full_name;
-    console.log("**************************")
-    console.log(context)
+
     if (username !== "the-welcome-bot[bot]")
       checkUser(context, username, repositoryName, "prOpen")
 
   })
 
   function checkUser(context, username, repositoryName, eventType) {
-    console.log("**************************")
 
-    console.log(context)
     db.User.findOne({
       where: {
         username: username,
         repositoryName: repositoryName
       }
     }).then(function (user) {
-
       if (user === null) {
         db.User.create({
           username: username,
           repositoryName: repositoryName
         }).then(async user => {
           try {
-            console.log("**************************")
-            console.log(context)
-            console.log("**************************")
-
             const config = await context.config('config.yml');
-            console.log(config)
             let message;
             if (config) {
               switch (eventType) {
