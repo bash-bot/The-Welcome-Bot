@@ -52,7 +52,7 @@ module.exports = (robot) => {
     })
   }
 
-  async function issueOpen() {
+  async function issueOpen(context) {
     try {
       const config = await context.config('config.yml');
       let message = config.issueOpen || config.welcomeMessage;
@@ -68,7 +68,7 @@ module.exports = (robot) => {
     }
   }
 
-  async function issueComment() {
+  async function issueComment(context) {
     try {
       const config = await context.config('config.yml');
       let message = config.issueComment || config.welcomeMessage;
@@ -84,7 +84,7 @@ module.exports = (robot) => {
     }
   }
 
-  async function prOpen() {
+  async function prOpen(context) {
     try {
       const config = await context.config('config.yml');
       let message = config.prOpen || config.welcomeMessage;
