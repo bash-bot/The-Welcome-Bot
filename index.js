@@ -11,7 +11,7 @@ module.exports = (robot) => {
     console.log("**************************")
     console.log(context)
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, "issueOpen")
+      checkUser(context, username, repositoryName, "issueOpen")
 
   })
 
@@ -21,7 +21,7 @@ module.exports = (robot) => {
       , repositoryName = context.payload.repository.full_name;
 
     if(username !== "the-welcome-bot[bot]")
-      checkUser(username, repositoryName, "issueComment")
+      checkUser(context, username, repositoryName, "issueComment")
 
   })
 
