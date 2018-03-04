@@ -46,9 +46,7 @@ module.exports = (robot) => {
         repositoryName: repositoryName
       }
     }).then(function (user) {
-      console.log("**************************")
 
-      console.log(context)
       if (user === null) {
         db.User.create({
           username: username,
