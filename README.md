@@ -4,7 +4,7 @@
 
 ## Usage
 
-1. **[Configure the GitHub App](https://github.com/apps/the-welcome-bot)**
+**[Configure the GitHub App](https://github.com/apps/the-welcome-bot)**
 
 A `.github/config.yml` file is required to enable custom messages. The file can override any of these default massages:
 
